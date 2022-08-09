@@ -1,11 +1,12 @@
-import getUserProfileService from "../services/getUserProfile.service.js";
+import getUserProfileService from "../services/getUserProfile.service";
 
-const listUsersController = (request, response) => {
+const getUserProfileController = (request, response) => {
     const id = request.userId;
+    //console.log("Foooooi");
 
-    const usersList = getUserProfileService(id);
+    const user = getUserProfileService(id);
 
-  return response.json(usersList);
+    return response.json(user);
 };
 
-export default listUsersController;
+export default getUserProfileController;

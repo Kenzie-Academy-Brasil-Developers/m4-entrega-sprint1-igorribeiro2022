@@ -1,7 +1,7 @@
 import users from "../database";
 
-const deleteUserService = (id) => {
-    const userIndex = users.findIndex((element) => element.id === id);
+const deleteUserService = (userId) => {
+    const userIndex = users.findIndex((user) => user.userId === userId);
 
   if (userIndex === -1) {
     return response.status(404).json("Usuário não encontrado");

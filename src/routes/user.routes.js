@@ -15,8 +15,10 @@ const router = Router();
 
 router.post("", verifyEmailMiddleware, createUserController);
 router.post("/login", userLoginController);
-router.get("/:id", verifyAuthTokenMiddleware, isAdmMiddleware, getUsersController);
+router.get("", verifyAuthTokenMiddleware, isAdmMiddleware, getUsersController);
+
 router.get("/profile", verifyAuthTokenMiddleware, getUserProfileController);
+
 router.patch("/:id", verifyAuthTokenMiddleware, updateUserController);
 router.delete("/:id", verifyAuthTokenMiddleware, deleteUserController);
 

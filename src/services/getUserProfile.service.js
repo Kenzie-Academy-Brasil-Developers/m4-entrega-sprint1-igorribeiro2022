@@ -1,14 +1,22 @@
 import users from "../database";
-import jwt from "jsonwebtoken";
 
 const getUsersService = (userId) => {
-    const user = users.find(user => user.id === userId)
-    
+    const user = users.find((user) => user.userId === userId)
+    //console.log(user);
+    const profileUser = {
+        name: user.name,
+        email: user.email,
+        isAdm: user.isAdm,
+        userId,
+        createdOn: user.createdOn,
+        updatedOn: user.updatedOn,
+    }
+
     if (!user) {
         return "Usuário não foi encontrado"
     }
 
-    return user
+    return profileUser
 };
 
 export default getUsersService;

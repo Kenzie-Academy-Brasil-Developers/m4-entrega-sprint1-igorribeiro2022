@@ -1,28 +1,54 @@
 import users from "../database";
+import jwt from "jsonwebtoken";
 
-    const isAdmMiddleware = (request, response, next) => {
-      const { id } = request.params;
-      const token = request.headers.authorization;
+const isAdmMiddleware = (request, response, next) => {
+  try {
+    let token = request.headers.authorization;
 
-      if (!token) {
+    if (!token) {
+      return response
+        .status(401)
+        .json({ message: "Não Autorizado, faça login!" });
+    }
+
+    token = token.split(" ")[1];
+
+    jwt.verify(token, "SECRET_KEY", (error, decoded) => {
+      if (error) {
+        return response.status(401).json({ message: "Token inválido." });
+      }
+      const userId = request.userId;
+      console.log(userId);
+
+      const user = users.find((user) => user.userId === userId);
+
+      if (!user) {
         return response
           .status(401)
-          .json({ message: "Não Autorizado, faça login!" });
-      }
-      const indexUser = users.findIndex((elem) => elem.id === id);
-
-      if (indexUser === -1) {
-        return "Usuário não encontrado!"
+          .json({ message: "Usuário não encontrado!" });
       }
 
-      if (indexUser.isAdm === false) {
+      if (!user.isAdm) {
         return response
           .status(401)
           .json({ message: "Não Autorizado. Somente administradores podem acessar essas informações!" });
       }
 
       next();
-      
-    };
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
-    export default isAdmMiddleware;
+
+  /*
+        if (indexUser.isAdm === false) {
+          return response
+            .status(401)
+            .json({ message: "Não Autorizado. Somente administradores podem acessar essas informações!" });
+        }
+  */
+
+};
+
+export default isAdmMiddleware;

@@ -1,25 +1,16 @@
 import users from "../database";
-import * as bcrypt from "bcryptjs";
 
-const updateUserService = async (nome, email, senha, id, isAdm) => {
-    const senhaCripto = await bcrypt.hash(senha, 10);
+const updateUserService = async (data, userId) => {
 
-    const usuarioAtualizado = {
-        nome,
-        email, 
-        senha: senhaCripto,
-        isAdm,
-        id,
-    }
-
-    const indexUser = users.findIndex((elem) => elem.id === id);
+    const indexUser = users.findIndex((elem) => elem.userId === userId);
 
     if (indexUser === -1) {
         return "Usuário não encontrado!";
     }
 
-    users[indexUser] = { ...users[indexUser], ...usuarioAtualizado };
+    users[indexUser] = { ...users[indexUser], ...data };
 
+    users[indexUser].updatedOn = new Date();
     return users[indexUser];
 }
 

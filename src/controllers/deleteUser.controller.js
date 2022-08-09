@@ -1,8 +1,8 @@
 import deleteUserService from "../services/deleteUser.service.js";
 
-const deleteUserController = (request, response) => {
-    const { id } = request.params;
-    const deletedUser = deleteUserService(id)
+const deleteUserController = async (request, response) => {
+    const userId = request.userId;
+    const deletedUser = await deleteUserService(userId)
   
     return response.json(deletedUser);
   };
