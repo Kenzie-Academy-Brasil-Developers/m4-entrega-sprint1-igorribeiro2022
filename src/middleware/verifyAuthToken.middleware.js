@@ -16,7 +16,6 @@
           return response.status(401).json({ message: "Token inválido." });
         }
         request.userId = decoded.userId;
-        //console.log(decoded);
         
         return next();
       });

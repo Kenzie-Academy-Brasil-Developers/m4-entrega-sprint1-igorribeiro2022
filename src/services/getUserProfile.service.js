@@ -2,7 +2,7 @@ import users from "../database";
 
 const getUsersService = (userId) => {
     const user = users.find((user) => user.userId === userId)
-    //console.log(user);
+
     const profileUser = {
         name: user.name,
         email: user.email,

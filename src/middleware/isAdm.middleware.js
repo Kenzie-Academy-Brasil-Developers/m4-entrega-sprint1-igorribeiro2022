@@ -18,7 +18,6 @@ const isAdmMiddleware = (request, response, next) => {
         return response.status(401).json({ message: "Token inválido." });
       }
       const userId = request.userId;
-      console.log(userId);
 
       const user = users.find((user) => user.userId === userId);
 
@@ -39,16 +38,6 @@ const isAdmMiddleware = (request, response, next) => {
   } catch (error) {
     console.log(error);
   }
-
-
-  /*
-        if (indexUser.isAdm === false) {
-          return response
-            .status(401)
-            .json({ message: "Não Autorizado. Somente administradores podem acessar essas informações!" });
-        }
-  */
-
 };
 
 export default isAdmMiddleware;

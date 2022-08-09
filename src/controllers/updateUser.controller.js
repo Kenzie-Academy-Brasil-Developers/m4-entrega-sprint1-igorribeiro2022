@@ -7,7 +7,6 @@ const updateUserController = async (request, response) => {
 
         const userUpdate = await updateUserService(data, userId);
 
-        console.log(userUpdate);
         return response.json(userUpdate);
 
     } catch (error) {
